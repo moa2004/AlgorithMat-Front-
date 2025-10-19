@@ -1,0 +1,22 @@
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 60vh;  */
+  /* وسط الصفحة */
+  margin: 20px 10px ;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #e6f0ff; /* لون باهت */
+  border-top: 6px solid #024e96; /* الأزرق الأساسي */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

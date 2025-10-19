@@ -1,0 +1,226 @@
+.problem-page {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 20px;
+  padding: 30px;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.problem-content {
+  background: linear-gradient(180deg, #ffffff, #f0f6ff);
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(0, 80, 180, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.problem-content:hover {
+  transform: translateY(-3px);
+}
+
+.problem-content h2 {
+  color: #024e96;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.problem-content p {
+  color: #333;
+  line-height: 1.6;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  color: #0056b3;
+  font-size: 18px;
+  margin-bottom: 8px;
+  border-left: 4px solid #007bff;
+  padding-left: 10px;
+}
+
+.tutorial-section {
+  background: linear-gradient(180deg, #ffffff, #f3f8ff);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 80, 180, 0.12);
+  height: fit-content;
+  transition: transform 0.2s ease;
+  margin-right: 20px;
+}
+
+.tutorial-section:hover {
+  transform: translateY(-3px);
+}
+
+.tutorial-section h3 {
+  color: #024e96;
+  margin-bottom: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  border-bottom: 2px solid #e1eaff;
+}
+
+.tabs button {
+  padding: 8px 15px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #024e96;
+  transition: 0.2s;
+  border-radius: 6px 6px 0 0;
+}
+
+.tabs button:hover {
+  background: #e6f0ff;
+}
+
+.tabs button.active {
+  background: #024e96;
+  color: #fff;
+}
+
+.tab-content {
+  padding: 15px 0;
+  min-height: 150px;
+}
+
+.sample-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 80, 180, 0.1);
+}
+
+.sample-table th {
+  background: #024e96;
+  color: white;
+  text-align: left;
+  padding: 10px;
+}
+
+.sample-table td {
+  border: 1px solid #e1eaff;
+  padding: 10px;
+  background: #fff;
+}
+
+.sample-table tr:nth-child(even) td {
+  background: #f4f8ff;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: #e6f0ff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #024e96;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: #024e96;
+  color: white;
+}
+
+.no-tutorial {
+  color: #777;
+  font-style: italic;
+}
+
+/* --- Solution reveal styles --- */
+.solution-card {
+  margin-top: 14px;
+  background: linear-gradient(180deg, #ffffff, #f7fbff);
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 80, 180, 0.08);
+  padding: 12px;
+}
+.solution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reveal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #cfe0ff;
+  color: #024e96;
+  background: #eaf3ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.reveal-btn:hover:not(:disabled) {
+  background: #dbeaff;
+  transform: translateY(-1px);
+}
+.reveal-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.code-container {
+  margin-top: 10px;
+  background: #0b1020;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #1f2a44;
+}
+.solution-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #121a2f, #0e1528);
+  border-bottom: 1px solid #1f2a44;
+}
+.badge {
+  color: #9cc5ff;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.btn-outline {
+  border: 1px solid #355a9a;
+  background: transparent;
+  color: #c7dcff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-outline:hover {
+  background: rgba(53, 90, 154, 0.2);
+}
+.code-block {
+  margin: 0;
+  padding: 12px;
+  color: #e6edf3;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

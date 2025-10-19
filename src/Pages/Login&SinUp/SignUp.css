@@ -1,0 +1,243 @@
+/* Global background and layout */
+.body {
+  margin: 0;
+  padding: 40px 16px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(47, 104, 255, 0.18), transparent 65%),
+    radial-gradient(circle at 85% 15%, rgba(33, 200, 183, 0.2), transparent 55%),
+    linear-gradient(135deg, #0f172a 0%, #112245 48%, #152f66 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.body::before,
+.body::after {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.22), transparent 60%);
+  border-radius: 50%;
+  filter: blur(0);
+  z-index: 0;
+}
+
+.body::before {
+  top: -120px;
+  left: -80px;
+}
+
+.body::after {
+  bottom: -140px;
+  right: -60px;
+}
+
+/* Card */
+.signup-container {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 42px 38px;
+  border-radius: 26px;
+  box-shadow: 0 35px 70px rgba(9, 24, 71, 0.35);
+  width: 100%;
+  max-width: 460px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(18px) saturate(160%);
+  height: auto;
+}
+
+/* Headings */
+.signup-container h2 {
+  margin-bottom: 6px;
+  text-align: center;
+  color: var(--brand-800);
+  font-weight: 800;
+  font-size: 1.95rem;
+}
+
+/* Labels */
+.signup-container label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gray-700);
+  font-weight: 600;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"],
+input[type="file"] {
+  width: 100%;
+  padding: 13px 14px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    transform 0.18s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus {
+  border-color: rgba(47, 104, 255, 0.75);
+  outline: none;
+  box-shadow: 0 12px 28px rgba(47, 104, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+/* invalid state */
+.invalid {
+  border-color: #ef4444 !important;
+  background: #fff6f6 !important;
+}
+
+/* Errors */
+.error {
+  color: var(--accent-rose);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.error-message {
+  color: tomato;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Password strength meter */
+.strength-wrap {
+  display: grid;
+  gap: 6px;
+  margin: -4px 0 10px 0;
+}
+.strength-bar {
+  width: 100%;
+  height: 8px;
+  background: #eef2f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.strength-fill {
+  height: 100%;
+  width: 0%;
+  background: #d7dce1;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+.strength-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Password field with toggle */
+.password-container {
+  position: relative;
+}
+
+.password-container input {
+  padding-right: 56px; /* space for the toggle button */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748b;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.toggle-password:hover {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #d1d5db;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+/* Optional: center icon horizontally inside the input (if you want it in the middle) */
+/* Add class "center-toggle" to the password-container to activate */
+.password-container.center-toggle .toggle-password {
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
+}
+
+/* Submit button */
+button[type="submit"] {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, var(--brand-500), var(--accent-emerald));
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 25px 40px rgba(15, 23, 42, 0.25);
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 32px 55px rgba(15, 23, 42, 0.3);
+}
+
+button[type="submit"][disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  background: #9bbcf3;
+}
+
+/* Login link */
+.login-link {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: var(--brand-600);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .signup-container {
+    width: 96%;
+  }
+}
+
+@media (max-width: 768px) {
+  .signup-container {
+    width: 88%;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    width: 92%;
+    padding: 28px 20px;
+  }
+}

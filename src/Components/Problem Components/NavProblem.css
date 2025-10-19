@@ -1,0 +1,55 @@
+:root {
+  --primary: #1e88e5;
+  --primary1: #429dec;
+  --primary-dark: #185abc;
+  --primary-deep: #1361af;
+  --primary-light: #e3f2fd;
+  --gray-bg: #f5f8fa;
+  --text-dark: #222c38;
+  --header-shadow: 0 2px 8px rgba(30, 136, 229, 0.06);
+  --border-color: #ddd;
+  --tag-bg: #cfd8dc;
+  --tag-text: #455a64;
+}
+
+
+.Link-decoration{
+    text-decoration: none;
+}
+.Nav-problem-main{
+    padding: 25px;
+    color: black;
+}
+.space{
+    margin-left: 10px;
+    margin-right: 10px;
+    color: black;
+    font-weight: 500;
+}
+
+
+.Nav-problem-page .a.active {
+  color: var(--primary-deep); /* اللون الأزرق الذي ذكرته */
+  font-weight: 600; /* يمكنك إضافة أي تنسيقات أخرى لتمييزه */
+  /* على سبيل المثال، إضافة خط سفلي */
+  border-bottom: 3px solid var(--primary-deep);
+
+ 
+}
+.Nav-problem-page .a {
+  color: #8b8888; /* اللون الأزرق الذي ذكرته */
+  font-weight: 600; /* يمكنك إضافة أي تنسيقات أخرى لتمييزه */
+  /* على سبيل المثال، إضافة خط سفلي */
+  padding-bottom: 15px;
+}
+
+.Nav-problem-page .a:hover{
+    color: var(--primary1);
+    border-bottom: 2px solid var(--primary1);
+}
+
+.hr-problem{
+   background-color: rgb(240, 238, 238);;
+   height: 10px;
+   border: none;
+}

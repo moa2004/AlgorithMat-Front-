@@ -1,0 +1,18 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="algorithmat-logo-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14274E"/>
+      <stop offset="100%" stop-color="#0B1324"/>
+    </linearGradient>
+    <linearGradient id="algorithmat-logo-accent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21C8B7"/>
+      <stop offset="100%" stop-color="#12A18F"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="108" height="108" rx="24" fill="url(#algorithmat-logo-bg)"/>
+  <rect x="22" y="22" width="84" height="84" rx="18" fill="none" stroke="#1F4FE0" stroke-width="6"/>
+  <path d="M54 86L42 86L62 42H74L94 86H82L77.4 74H58.6L54 86Z" fill="#FFFFFF"/>
+  <circle cx="86" cy="52" r="6" fill="url(#algorithmat-logo-accent)"/>
+  <circle cx="86" cy="66" r="6" fill="url(#algorithmat-logo-accent)"/>
+  <circle cx="86" cy="80" r="6" fill="url(#algorithmat-logo-accent)"/>
+</svg>

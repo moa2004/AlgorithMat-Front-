@@ -1,0 +1,13 @@
+.ProfilePage {
+  padding: 20px;
+  background-color: #f0eeee;
+  min-height: 100vh;
+}
+
+.cards-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}

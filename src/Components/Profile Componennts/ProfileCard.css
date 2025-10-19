@@ -1,0 +1,86 @@
+   :root {
+        --primary-color: #1d4ed8;
+        --primary-light: #e0edff;
+        --transition-speed: 0.3s;
+        --primary: #1e88e5;
+        --primary-dark: #185abc;
+        --primary-deep: #1361af;
+        --primary-light: #e3f2fd;
+        --gray-bg: #f5f8fa;
+        --border-color: #ddd;
+        --tag-bg: #cfd8dc;
+        --tag-text: #455a64;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      
+ .stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .stat {
+        background-color: var(--primary-light);
+        padding: 1.25rem;
+        border-radius: 12px;
+        flex: 1 1 30%;
+        min-width: 120px;
+        cursor: pointer;
+        transition: all var(--transition-speed) ease;
+        text-align: center;
+      }
+
+      .stat {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+      }
+
+      .stat:hover {
+        background-color: var(--primary);
+        transform: translateY(-3px);
+      }
+
+      .stat:hover h4,
+      .stat:hover p {
+        color: white;
+      }
+
+      .stat h4 {
+        color: var(--primary-color);
+        font-size: 1.5rem; /* تصغير حجم الخط */
+        font-weight: bold;
+        margin-bottom: 1rem;
+        transition: color var(--transition-speed) ease;
+      }
+
+      .stat p {
+        font-size: 1.5rem; /* تصغير حجم الخط */
+        font-weight: 600;
+        color: var(--text-color);
+        margin-top: 0;
+        transition: color var(--transition-speed) ease;
+      }
+       /* ميديا كويري */
+      @media (max-width: 480px) {
+        .stats {
+          flex-direction: column;
+        }
+
+        .stat {
+          width: 100%;
+          max-width: 200px;
+          margin: 0 auto;
+        }
+      }

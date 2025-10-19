@@ -1,0 +1,24 @@
+  :root{
+--color-primer:#04478f
+  }
+  
+  
+  .DButtons{
+        margin-top: auto;
+        margin-bottom: auto;
+        display: inline-block;
+        padding: 6px;
+        background-color: var(--color-primer);
+        border: 2px solid transparent;
+        color: white;
+        font-size: 0.8em;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        /* font-weight:bolder; */
+      }
+
+      .DButtons:hover {
+        box-shadow: 0 6px 12px rgba(77, 75, 75, 0.267);
+      }

@@ -1,0 +1,172 @@
+.ProblemListMain {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0 60px;
+  background: transparent;
+}
+
+.child {
+  width: min(1100px, 96%);
+}
+
+.table-wrapper {
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 24px;
+  padding: 24px 26px 34px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-elevated);
+  backdrop-filter: blur(12px) saturate(130%);
+  border: 1px solid rgba(47, 104, 255, 0.15);
+}
+
+.table-title {
+  padding: 0 4px 14px;
+  margin: 0;
+  color: var(--brand-700);
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(47, 104, 255, 0.1);
+}
+
+.par-table {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+}
+
+.ch-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.ch-table thead tr {
+  background: linear-gradient(120deg, rgba(47, 104, 255, 0.08), rgba(33, 200, 183, 0.08));
+}
+
+.ch-table thead th {
+  color: var(--brand-800);
+  font-size: 0.9rem;
+  padding: 16px 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.ch-table tbody tr {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ch-table tbody tr + tr {
+  border-top: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.ch-table tbody tr:hover {
+  background: rgba(47, 104, 255, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(15, 23, 42, 0.08);
+}
+
+.ch-table td {
+  padding: 14px 12px;
+  font-size: 0.92rem;
+  color: var(--gray-700);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.ch-table td.id-cell {
+  font-weight: 700;
+  color: var(--brand-700);
+  font-size: 0.96rem;
+}
+
+.ch-table td.description-cell {
+  max-width: 260px;
+  text-align: left;
+  line-height: 1.45;
+  color: var(--gray-700);
+}
+
+.tags-cell {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.table-stat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  margin: 16px 0 24px;
+  border-radius: 16px;
+  background: rgba(47, 104, 255, 0.08);
+  border: 1px solid rgba(47, 104, 255, 0.12);
+}
+
+.table-stat-bar div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--brand-700);
+}
+
+@media (max-width: 992px) {
+  .table-wrapper {
+    padding: 22px;
+  }
+
+  .table-stat-bar {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    padding: 20px;
+  }
+
+  .ch-table {
+    font-size: 0.85rem;
+  }
+
+  .ch-table td {
+    padding: 12px 10px;
+  }
+
+  .ch-table td.description-cell {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 580px) {
+  .ProblemListMain {
+    padding: 24px 0 40px;
+  }
+
+  .table-wrapper {
+    border-radius: 20px;
+  }
+
+  .table-stat-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .par-table {
+    border-radius: 14px;
+  }
+
+  .ch-table td.description-cell {
+    max-width: 170px;
+  }
+}

@@ -34,26 +34,22 @@ const StatusChip = ({ status }) => {
 export default function SubmissionPage() {
   const { id } = useParams();
 
-  // Form state
   const [code, setCode] = useState("");
   const [problemID, setProblemID] = useState(id || "");
   const [compilerName, setCompilerName] = useState("");
   const [compilers, setCompilers] = useState([]);
   const [visionScope, setVisionScope] = useState("onlyme");
 
-  // UI state
   const [isPopupActive, setIsPopupActive] = useState(false);
   const [message, setMessage] = useState("");
   const [accept, setAccept] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  // Submission/result state
   const [submissionID, setSubmissionID] = useState(null);
   const [submissionData, setSubmissionData] = useState(null);
   const [errorRes, setErrorRes] = useState(null);
 
-  // Token parsing (safe)
   const rawAuth = localStorage.getItem("userAuth");
   let token = null;
   try {
@@ -63,7 +59,6 @@ export default function SubmissionPage() {
     token = null;
   }
 
-  // Get Compilers (axios, with cancellation guard)
   useEffect(() => {
     let canceled = false;
     axios
@@ -78,10 +73,8 @@ export default function SubmissionPage() {
     };
   }, []);
 
-  // Unified Auth modal content
   const Auth = <AuthRequiredMessage />;
 
-  // Validate inputs
   const validate = () => {
     const e = {};
     if (!problemID) e.problemID = "You must specify the Problem ID";
@@ -91,7 +84,6 @@ export default function SubmissionPage() {
     return Object.keys(e).length === 0;
   };
 
-  // Submit handler
   const handleSubmit = async () => {
     setAccept(true);
 
@@ -133,7 +125,6 @@ export default function SubmissionPage() {
     }
   };
 
-  // Fetch result for submission (guarded + cancellation)
   useEffect(() => {
     if (!submissionID || !token) return;
     let canceled = false;
@@ -173,7 +164,6 @@ export default function SubmissionPage() {
     };
   }, [submissionID, token]);
 
-  // حساب عدد الأسطر لعمود أرقام الأسطر
   const lineCount = code.split("\n").length;
 
   return (

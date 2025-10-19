@@ -3,15 +3,6 @@ import { Link } from "react-router-dom";
 import Buttons from "./Buttons";
 import "./HelperMessage.css";
 
-// Professional helper/alert message component
-// Props:
-// - variant: 'success' | 'error' | 'warning' | 'info' | 'auth'
-// - title: string
-// - description: string | ReactNode
-// - actions: [{ type: 'link' | 'button', label: string, to?: string, onClick?: () => void, style?: React.CSSProperties }]
-// - icon?: ReactNode (optional custom icon)
-// - compact?: boolean (smaller spacing)
-
 const variantMeta = {
   success: {
     color: "#10b981",

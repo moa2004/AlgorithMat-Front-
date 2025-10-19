@@ -10,18 +10,15 @@ export default function ProblemListPage() {
   const [problems, setProblems] = useState([]);
   const [problemsAllData, setProblemsAllData] = useState({});
   const [pageNum, setPageNum] = useState(1);
-  const [loading, setLoading] = useState(true); // ✅ حالة التحميل
-  const [error, setError] = useState(null); // ✅ حالة الخطأ
-
-  // Filters state
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
   const [title, setTitle] = useState("");
-  const [difficulty, setDifficulty] = useState(""); // "", "Easy", "Medium", "Hard"
-  const [selectedTag, setSelectedTag] = useState(""); // tagID as string
+  const [difficulty, setDifficulty] = useState(""); 
+  const [selectedTag, setSelectedTag] = useState(""); 
   const [tags, setTags] = useState([]);
 
   const navigate = useNavigate();
 
-  // handel Next/Prev Page
   function handelNextPage() {
     if (pageNum < (problemsAllData.totalPages || 1)) {
       setPageNum((prev) => prev + 1);
@@ -34,14 +31,12 @@ export default function ProblemListPage() {
     }
   }
 
-  // fetch data
   useEffect(() => {
     const fetchProblems = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // Build query params
         const params = new URLSearchParams();
         params.set("page", pageNum);
         params.set("limit", 20);
@@ -52,7 +47,7 @@ export default function ProblemListPage() {
         const url = `http://localhost:5023/api/v1/problems?${params.toString()}`;
         const res = await fetch(url);
 
-        if (!res.ok) throw new Error("فشل جلب البيانات");
+        if (!res.ok) throw new Error("Failed to fetch problems");
 
         const data = await res.json();
         setProblems(data.items || []);
@@ -72,7 +67,6 @@ export default function ProblemListPage() {
     navigate(`/ProblemPage/${id}`);
   }
 
-  // إحصائيات هذه الصفحة فقط (المعروضة حالياً)
   const totalProblems = problems.length;
   const totalAttempts = problems.reduce(
     (acc, p) => acc + (p.attemptsCount || 0),
@@ -84,7 +78,6 @@ export default function ProblemListPage() {
     Hard: problems.filter((p) => p.difficulty === "Hard").length,
   };
 
-  // Load tags once
   useEffect(() => {
     const fetchTags = async () => {
       try {
@@ -101,13 +94,11 @@ export default function ProblemListPage() {
     fetchTags();
   }, []);
 
-  // Helper to truncate long description
   const truncate = (text, max = 100) =>
     typeof text === "string" && text.length > max
       ? text.slice(0, max) + "…"
       : text || "";
 
-  // Show problems
   const renderProblems = () => {
     if (loading) {
       return (

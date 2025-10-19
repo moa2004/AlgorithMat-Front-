@@ -4,7 +4,7 @@ import ProblemInfoForm from "../../Components/AddProblemPage/ProblemInfoForm";
 import DifficultySelector from "../../Components/AddProblemPage/DifficultySelector";
 import TagsSelector from "../../Components/AddProblemPage/TagsSelector";
 import TestCasesForm from "../../Components/AddProblemPage/TestCasesForm";
-import "./AddProblemPage.css"; // استيراد التنسيقات
+import "./AddProblemPage.css";
 import Buttons from "../../Components/miniComponents/Buttons";
 import Modal from "../../Components/Modal";
 import HelperMessage from "../../Components/miniComponents/HelperMessage";
@@ -32,20 +32,17 @@ export default function AddProblemPage() {
     setProblemData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // جلب التوكن من localStorage
   const stored = localStorage.getItem("userAuth");
   const token = stored ? JSON.parse(stored) : null;
   const userToken = token?.userData?.token ?? null;
 
   const handleSubmit = async () => {
-    // إذا لم يكن هناك توكن: أظهر نفس رسالة التسجيل المستخدمة في صفحة Submissions
     if (!userToken) {
       setMessage(Auth);
       setIsPopupActive(true);
       return;
     }
 
-    // تحقق من الحقول المطلوبة (باستثناء Note و Tutorial فهي اختيارية)
     const pd = problemData;
     const missing = [];
 
@@ -140,7 +137,6 @@ export default function AddProblemPage() {
     }
   };
 
-  // نفس رسالة عدم تسجيل الدخول كما في صفحة SubmissionPage (بتصميم محسن)
   const Auth = <AuthRequiredMessage />;
 
   return (

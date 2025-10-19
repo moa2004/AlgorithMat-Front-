@@ -6,7 +6,6 @@ export default function ProblemInfoForm({ problemData, onChange }) {
   const [loadingCompilers, setLoadingCompilers] = useState(false);
   const [compilersError, setCompilersError] = useState(null);
 
-  // Toggle help messages per field
   const [hints, setHints] = useState({
     title: false,
     compiler: false,
@@ -32,7 +31,6 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         if (!res.ok) throw new Error("Failed to fetch compilers");
         const data = await res.json();
         setCompilers(Array.isArray(data) ? data : []);
-        // Keep current value if it exists in list, else default to first compiler
         if (!problemData.compilerName && data?.length) {
           onChange("compilerName", data[0].compilerName);
         }
@@ -44,7 +42,6 @@ export default function ProblemInfoForm({ problemData, onChange }) {
       }
     };
     fetchCompilers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const hintBtn = (key, label) => (

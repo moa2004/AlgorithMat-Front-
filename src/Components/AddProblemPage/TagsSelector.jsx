@@ -3,8 +3,8 @@ import HelperText from "../miniComponents/HelperText";
 
 export default function TagsSelector({ selected, onChange }) {
   const [tags, setTags] = useState([]);
-  const [loading, setLoading] = useState(true); // حالة التحميل
-  const [error, setError] = useState(null); // للتعامل مع الأخطاء
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchTags = async () => {

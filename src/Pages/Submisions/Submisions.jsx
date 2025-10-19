@@ -7,18 +7,16 @@ import Modal from "../../Components/Modal";
 import AuthRequiredMessage from "../../Components/miniComponents/AuthRequiredMessage";
 export default function Submissions() {
   const [submissions, setSubmissions] = useState([]);
-  const [meta, setMeta] = useState({}); // بدل ما يكون state منفصل
+  const [meta, setMeta] = useState({}); 
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // modal state for details
   const [isPopupActive, setIsPopupActive] = useState(false);
-  const [popupContent, setPopupContent] = useState(null); // React node or string
+  const [popupContent, setPopupContent] = useState(null); 
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState(null);
 
-  // Token parsing (safe)
   const rawAuth = localStorage.getItem("userAuth");
   let token = null;
   try {
@@ -28,7 +26,6 @@ export default function Submissions() {
     token = null;
   }
 
-  // get data
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
@@ -54,9 +51,7 @@ export default function Submissions() {
 
     fetchSubmissions();
   }, [pageNum]);
-  // End get data
 
-  // Stats for current page (visible submissions only)
   const totalSubmissions = submissions.length;
   const avgExecutionMs = totalSubmissions
     ? Math.round(
@@ -77,10 +72,8 @@ export default function Submissions() {
     submissions.map((s) => s.username).filter(Boolean)
   ).size;
 
-  // Open details popup
   const handleOpenDetails = async (submissionID) => {
     try {
-      // If not logged in, show unified Auth message and exit
       if (!token) {
         setPopupContent(<AuthRequiredMessage compact />);
         setIsPopupActive(true);
@@ -106,7 +99,6 @@ export default function Submissions() {
         throw new Error(`Failed to fetch solution details (${res.status})`);
       const data = await res.json();
 
-      // render content node
       const info = data?.submissionInfo || {};
       const tests = data?.submissionsTestCases || [];
       const node = (
@@ -255,7 +247,6 @@ export default function Submissions() {
     }
   };
 
-  // handle pagination
   const handelNextPage = () => {
     if (pageNum < (meta.totalPages || 1)) {
       setPageNum((prev) => prev + 1);
@@ -268,7 +259,6 @@ export default function Submissions() {
     }
   };
 
-  // render rows
   const renderSubmissions = () => {
     if (loading) {
       return (

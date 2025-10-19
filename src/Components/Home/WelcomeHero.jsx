@@ -1,6 +1,5 @@
 import React from "react";
 
-// Simple hero card: shows different content based on username
 export default function WelcomeHero({ username }) {
   return (
     <>

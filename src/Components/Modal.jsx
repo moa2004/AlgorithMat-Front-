@@ -3,8 +3,6 @@ import "./Modal.css";
 
 const Modal = ({ text, isActive, setIsActive, style, children }) => {
   const popupRef = useRef(null);
-
-  // Close the modal when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {

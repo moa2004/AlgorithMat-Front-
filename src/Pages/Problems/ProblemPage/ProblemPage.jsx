@@ -33,7 +33,6 @@ export default function ProblemPage() {
     setTimeout(() => setCopied(false), 1500);
   };
 
-  // Solution reveal/copy state
   const [showSolution, setShowSolution] = useState(false);
   const [copiedSolution, setCopiedSolution] = useState(false);
   const handleCopySolution = async () => {
@@ -59,11 +58,9 @@ export default function ProblemPage() {
       });
   }, [id]);
 
-  //loding + Problem not found.
   if (loading) return <LoadingSpinner />;
   if (!problem) return <div className="error">Problem not found.</div>;
 
-  //Buttons
 
   console.log(problem);
   return (

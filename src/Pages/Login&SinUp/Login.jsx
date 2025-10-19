@@ -5,7 +5,6 @@ import "./SignUp.css";
 import logo from "/src/assets/algorithmat-logo.svg";
 
 export default function Login() {
-  //form Obj
   const [myForm, setMyForm] = useState({
     Username: "",
     password: "",
@@ -18,12 +17,10 @@ export default function Login() {
     setAccept(true);
   }
 
-  // ✅ إظهار/إخفاء كلمة السر
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  //Send Data
 
   let Less_8 = myForm.password.length < 8;
   const hasSpaceInUsername = /\s/.test(myForm.Username);
@@ -36,7 +33,6 @@ export default function Login() {
       flag = true;
     }
 
-    // reset any previous error before sending request
     setError(null);
 
     try {
@@ -62,14 +58,12 @@ export default function Login() {
     } catch (err) {
       const status = err?.response?.status;
       if (status === 400) {
-        // Show English error when username or password is wrong
         setError("Username or password is incorrect");
       } else {
         setError("Something went wrong. Please try again.");
       }
     }
   }
-  //End Send Data
 
   console.log(Error);
 

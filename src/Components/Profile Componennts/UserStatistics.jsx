@@ -45,7 +45,6 @@ export default function UserStatistics({ userId }) {
   }, [userId]);
 
   if (loading) return <div>Loading statistics...</div>;
-  // If no stats yet (new user or no activity), show a friendly message
   if (!stats) {
     return (
       <div style={{ color: "#555", fontSize: 14 }}>
@@ -54,7 +53,6 @@ export default function UserStatistics({ userId }) {
     );
   }
 
-  // Build charts data safely even if objects are missing or empty
   const statusData = Object.entries(
     stats.numberOfSubmissionsByStatus || {}
   ).map(([status, value]) => ({ name: status, value }));
@@ -66,7 +64,6 @@ export default function UserStatistics({ userId }) {
     })
   );
 
-  // If both charts have no data, show the same explanatory message
   const isEmpty = statusData.length === 0 && tagData.length === 0;
   if (isEmpty) {
     return (
@@ -114,7 +111,7 @@ export default function UserStatistics({ userId }) {
             <Pie
               data={tagData}
               cx="50%"
-              cy="40%" // نرفع الدائرة لفوق
+              cy="40%"
               outerRadius={100}
               label
               dataKey="value"
@@ -131,7 +128,7 @@ export default function UserStatistics({ userId }) {
               verticalAlign="bottom"
               layout="horizontal"
               align="center"
-              wrapperStyle={{ marginTop: 20 }} // مسافة إضافية
+              wrapperStyle={{ marginTop: 20 }} 
             />
           </PieChart>
         </ResponsiveContainer>

@@ -7,7 +7,6 @@ export default function UserMenu() {
   const navigate = useNavigate();
   const menuRef = useRef(null);
 
-  // إغلاق عند النقر خارج القائمة أو الضغط على Escape
   useEffect(() => {
     const onClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target))
@@ -24,19 +23,16 @@ export default function UserMenu() {
     };
   }, []);
 
-  // Logout
   const handleLogout = () => {
     window.localStorage.removeItem("userAuth");
     console.log(navigate);
-    // Use full reload redirect to ensure state reset
     window.location.assign("/Home");
-    // Alternative: window.location.href = "/Home";
   };
 
   return (
     <div className="user-menu" ref={menuRef}>
       <div className="user-info">
-        {/* زر منفصل للتحكم بالقائمة */}
+        {}
         <button
           className={`menu-toggle ${open ? "open" : ""}`}
           onClick={() => setOpen((v) => !v)}
@@ -66,7 +62,7 @@ export default function UserMenu() {
 
       <div className={`dropdown ${open ? "show" : "hide"}`} role="menu">
         <button className="dropdown-item" onClick={handleLogout}>
-          {/* أيقونة خروج (SVG) */}
+          {}
           <svg
             width="18"
             height="18"

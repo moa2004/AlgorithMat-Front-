@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "../miniComponents/LoadingSpinner";
 
-// صورة افتراضية (تقدر تبدل الرابط بأي صورة عندك)
 const defaultAvatar =
   "https://cdn-icons-png.flaticon.com/512/847/847969.png";
 
@@ -57,7 +56,7 @@ export default function UserAvatar({ className }) {
     <div>
       <img
         className={className}
-        src={userImage || defaultAvatar} // 👈 صورة المستخدم أو الافتراضية
+        src={userImage || defaultAvatar}
         alt="User Avatar"
         style={style1}
       />

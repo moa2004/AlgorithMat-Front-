@@ -66,7 +66,7 @@ export default function TestCasesForm({ testCases, onChange }) {
         />
       </div>
 
-      {/* قائمة test cases */}
+      {/* test cases */}
       <ul className="test-case-list">
         {testCases.length === 0 && (
           <p style={{ color: "#666" }}>No test cases added yet</p>

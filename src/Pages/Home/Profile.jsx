@@ -11,7 +11,7 @@ import UserSubmissions from "../../Components/Profile Componennts/UserSubmission
 import Modal from "../../Components/Modal";
 
 export default function ProfilePage() {
-  const storedUser = JSON.parse(localStorage.getItem("userAuth")); // 👈 جلب بيانات المستخدم
+  const storedUser = JSON.parse(localStorage.getItem("userAuth"));
   const userId = storedUser?.userData?.userId;
   const userName = storedUser?.userData?.userName;
 
@@ -22,12 +22,10 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // User info state
   const [userInfo, setUserInfo] = useState(null);
   const [userInfoLoading, setUserInfoLoading] = useState(true);
   const [userInfoError, setUserInfoError] = useState(null);
 
-  // Change password modal state
   const [isChangePwdOpen, setIsChangePwdOpen] = useState(false);
   const [pwdForm, setPwdForm] = useState({ oldPassword: "", newPassword: "" });
   const [pwdLoading, setPwdLoading] = useState(false);
@@ -36,7 +34,6 @@ export default function ProfilePage() {
 
   const navigate = useNavigate();
 
-  // 📌 جلب الإحصائيات
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -53,7 +50,6 @@ export default function ProfilePage() {
     fetchStats();
   }, [userId]);
 
-  // 📌 جلب معلومات المستخدم (createdAt, isActive)
   useEffect(() => {
     if (!userId) return;
     const fetchUser = async () => {
@@ -76,7 +72,6 @@ export default function ProfilePage() {
     fetchUser();
   }, [userId]);
 
-  // 📌 جلب المسائل التي أضافها المستخدم
   useEffect(() => {
     const fetchProblems = async () => {
       try {
@@ -101,12 +96,10 @@ export default function ProfilePage() {
     fetchProblems();
   }, [pageNum, userId]);
 
-  // 📌 الانتقال لصفحة المسألة
   function handelGoToPrblemPage(id) {
     navigate(`/ProblemPage/${id}`);
   }
 
-  // 📌 عرض المسائل
   const renderProblems = () => {
     if (loading) {
       return (
@@ -434,7 +427,7 @@ export default function ProfilePage() {
             try {
               const token = storedUser?.userData?.token;
               const res = await fetch(
-                "http://problem-solving.runasp.net/api/v1/auth/change-password",
+                "http://localhost:5023/api/v1/auth/change-password",
                 {
                   method: "PUT",
                   headers: {

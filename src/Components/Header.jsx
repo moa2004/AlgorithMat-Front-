@@ -7,12 +7,8 @@ import UserMenu from "./UserMenu";
 import UserAvatar from "./Profile Componennts/UserAvatar";
 
 export default function Header() {
-  // Get user data from localStorage
   const storedUser = window.localStorage.getItem("User");
-  // Parse JSON if present
   const user = storedUser ? JSON.parse(storedUser) : null;
-
-  // We will fetch data from the server by username later
 
   return (
     <header>

@@ -13,7 +13,6 @@ import "./Home.css";
 export default function Home() {
   const navigate = useNavigate();
 
-  // Parse user from localStorage (safe)
   const username = useMemo(() => {
     try {
       const raw = window.localStorage.getItem("userAuth");
@@ -31,20 +30,17 @@ export default function Home() {
     }
   }, []);
 
-  // State
   const [stats, setStats] = useState(null);
   const [latestProblems, setLatestProblems] = useState([]);
   const [latestSubs, setLatestSubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Modal state for submission details
   const [isPopupActive, setIsPopupActive] = useState(false);
-  const [popupContent, setPopupContent] = useState(null); // React node or string
+  const [popupContent, setPopupContent] = useState(null);
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState(null);
 
-  // Token parsing (safe)
   const rawAuth =
     typeof window !== "undefined" ? localStorage.getItem("userAuth") : null;
   let token = null;
@@ -63,21 +59,18 @@ export default function Home() {
         setLoading(true);
         setError(null);
 
-        // Fetch statistics
         const sRes = await fetch(
-          "http://problem-solving.runasp.net/api/v1/Statistics"
+          "http://localhost:5023/api/v1/Statistics"
         );
         if (!sRes.ok) throw new Error("Failed to fetch statistics");
         const sData = await sRes.json();
 
-        // Fetch problems (get a larger page then pick most solved client-side)
         const pRes = await fetch(
           "http://localhost:5023/api/v1/problems?page=1&limit=50"
         );
         if (!pRes.ok) throw new Error("Failed to fetch problems");
         const pData = await pRes.json();
 
-        // Fetch latest submissions (first page, limit 5)
         const subRes = await fetch(
           "http://localhost:5023/api/v1/submissions?page=1&limit=5"
         );
@@ -86,7 +79,6 @@ export default function Home() {
 
         if (!canceled) {
           setStats(sData || null);
-          // sort by attemptsCount (desc) and pick top 5 as "most solved"
           const items = Array.isArray(pData?.items) ? pData.items : [];
           const mostSolved = items
             .slice()
@@ -109,10 +101,8 @@ export default function Home() {
   }, []);
 
   const handleOpenProblem = (id) => navigate(`/ProblemPage/${id}`);
-  // Open submission details in modal (like Submisions.jsx)
   const handleOpenSubmission = async (submissionID) => {
     try {
-      // If not logged in, show auth prompt in modal and exit
       if (!token) {
         setIsPopupActive(true);
         setPopupContent(<AuthRequiredMessage compact />);

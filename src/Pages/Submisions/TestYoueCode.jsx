@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
-import "./SubmissionPage.css"; // reuse the unified styles
+import "./SubmissionPage.css"; 
 import Buttons from "../../Components/miniComponents/Buttons";
 import axios from "axios";
 
 export default function TestYoueCode() {
-  // form state
   const [code, setCode] = useState("");
   const [inputData, setInputData] = useState("");
   const [compilerName, setCompilerName] = useState("");
   const [compilers, setCompilers] = useState([]);
 
-  // ui state
   const [accept, setAccept] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [errorRes, setErrorRes] = useState(null);
   const [outputText, setOutputText] = useState(null);
 
-  // line numbers for editor
   const lineCount = code.split("\n").length;
 
-  // fetch compilers
   useEffect(() => {
     let canceled = false;
     axios
@@ -42,7 +38,6 @@ export default function TestYoueCode() {
     return Object.keys(e).length === 0;
   };
 
-  // Submit handler
   const handleSubmit = async () => {
     setAccept(true);
     setErrorRes(null);
@@ -73,7 +68,6 @@ export default function TestYoueCode() {
         setOutputText(JSON.stringify(data, null, 2));
       }
     } catch (error) {
-      // normalize error
       const resp = error?.response;
       if (resp?.data) {
         try {
@@ -81,7 +75,6 @@ export default function TestYoueCode() {
           if (typeof d === "string") {
             setErrorRes(d);
           } else if (d?.errors) {
-            // collect validation errors
             const msgs = Object.values(d.errors).flat().join("\n");
             setErrorRes(msgs || d.title || "Request failed");
           } else if (d?.title || d?.message) {

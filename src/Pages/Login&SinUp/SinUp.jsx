@@ -20,11 +20,9 @@ export default function SignUp() {
   const handleErrors = () => setAccept(true);
   const togglePassword = () => setShowPassword((prev) => !prev);
 
-  // Password validations
   const dontMatch = myForm.password !== myForm.rPassword;
   const Less_8 = myForm.password.length < 8;
 
-  // Username validations
   const usernameTrim = myForm.Username.trim();
   const usernameHasSpace = /\s/.test(myForm.Username);
   const usernameStartsWithNumber = /^\d/.test(usernameTrim);
@@ -36,10 +34,8 @@ export default function SignUp() {
     usernameStartsWithNumber ||
     usernameHasSpace;
 
-  // File required
   const imageMissing = !myForm.ProfileImage;
 
-  // Overall form validity
   const formValid = !Less_8 && !dontMatch && !usernameInvalid && !imageMissing;
 
   async function handleSendData() {

@@ -17,22 +17,19 @@ export default function UserSubmissions({ userId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // modal state for details
   const [isPopupActive, setIsPopupActive] = useState(false);
-  const [popupContent, setPopupContent] = useState(null); // used for auth-required or simple messages
+  const [popupContent, setPopupContent] = useState(null);
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState(null);
   const [currentSubmissionId, setCurrentSubmissionId] = useState(null);
   const [detailsInfo, setDetailsInfo] = useState(null);
   const [detailsTests, setDetailsTests] = useState([]);
 
-  // visionScope state (static options, no server fetch)
-  const [selectedVisionId, setSelectedVisionId] = useState(null); // number | null
+  const [selectedVisionId, setSelectedVisionId] = useState(null); 
   const [visionSaving, setVisionSaving] = useState(false);
   const [visionMsg, setVisionMsg] = useState(null);
   const [visionErr, setVisionErr] = useState(null);
 
-  // Token parsing (safe)
   const rawAuth = localStorage.getItem("userAuth");
   let token = null;
   try {
@@ -42,7 +39,6 @@ export default function UserSubmissions({ userId }) {
     token = null;
   }
 
-  // get user submissions (requires token)
   useEffect(() => {
     const fetchSubmissions = async () => {
       try {
@@ -75,7 +71,6 @@ export default function UserSubmissions({ userId }) {
     if (token && userId) fetchSubmissions();
   }, [pageNum, token, userId]);
 
-  // Open details popup (requires token)
   const handleOpenDetails = async (submissionID) => {
     try {
       if (!token) {
@@ -105,7 +100,6 @@ export default function UserSubmissions({ userId }) {
       const info = data?.submissionInfo || {};
       const tests = data?.submissionsTestCases || [];
 
-      // set initial selected vision id (prefer IDs; else map from visionScope text; else default)
       let initialVisionId;
       if (typeof info.visionScopeId === "number") {
         initialVisionId = info.visionScopeId;
@@ -113,7 +107,7 @@ export default function UserSubmissions({ userId }) {
         initialVisionId = info.visionScopeID;
       } else if (typeof info.visionScope === "string") {
         const v = info.visionScope.toLowerCase();
-        initialVisionId = v === "all" ? 1 : 0; // map text to our static options
+        initialVisionId = v === "all" ? 1 : 0; 
       } else {
         initialVisionId = VISION_OPTIONS[0].id;
       }
@@ -130,7 +124,6 @@ export default function UserSubmissions({ userId }) {
     }
   };
 
-  // Save vision using latest state (avoids stale closures)
   const handleSaveVision = async () => {
     if (!token || currentSubmissionId == null || selectedVisionId == null)
       return;
@@ -156,7 +149,6 @@ export default function UserSubmissions({ userId }) {
             style={{ marginRight: 6, color: "#22c55e" }}
           ></i>)} Updated successfully`
       );
-      // auto-hide success after 2s
       setTimeout(() => setVisionMsg(null), 2000);
     } catch (e) {
       console.error(e);
@@ -166,7 +158,6 @@ export default function UserSubmissions({ userId }) {
     }
   };
 
-  // Render details node from state (not stored in state to avoid stale data)
   const renderDetailsContent = () => {
     if (!detailsInfo) return null;
     const info = detailsInfo;
@@ -380,7 +371,6 @@ export default function UserSubmissions({ userId }) {
     );
   };
 
-  // handle pagination
   const handelNextPage = () => {
     if (pageNum < (meta.totalPages || 1)) {
       setPageNum((prev) => prev + 1);
@@ -393,7 +383,6 @@ export default function UserSubmissions({ userId }) {
     }
   };
 
-  // Stats for current page
   const totalSubmissions = submissions.length;
   const avgExecutionMs = totalSubmissions
     ? Math.round(

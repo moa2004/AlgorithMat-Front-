@@ -4,11 +4,11 @@ import ProblemInfoForm from "../../Components/AddProblemPage/ProblemInfoForm";
 import DifficultySelector from "../../Components/AddProblemPage/DifficultySelector";
 import TagsSelector from "../../Components/AddProblemPage/TagsSelector";
 import TestCasesForm from "../../Components/AddProblemPage/TestCasesForm";
-import "./AddProblemPage.css";
 import Buttons from "../../Components/miniComponents/Buttons";
 import Modal from "../../Components/Modal";
 import HelperMessage from "../../Components/miniComponents/HelperMessage";
 import AuthRequiredMessage from "../../Components/miniComponents/AuthRequiredMessage";
+import "./AddProblemPage.css";
 
 export default function AddProblemPage() {
   const [problemData, setProblemData] = useState({
@@ -140,72 +140,39 @@ export default function AddProblemPage() {
   const Auth = <AuthRequiredMessage />;
 
   return (
-    <div
-      className="ProblemListMain"
-      style={{ width: "100%", display: "garde" }}
-    >
-      <div
-        style={{
-          backgroundColor: "#fff",
-          borderRadius: "8px",
-          width: "95%",
-          boxShadow: "7px 7px 15px 1px #00000024",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            className="Problesm-By-User"
-            style={{ padding: "20px", width: "100%" }}
-          >
-            <h3
-              style={{
-                padding: "10px",
-                margin: "10px 0 5px 10px",
-                color: "#024e96",
-              }}
-            >
-              Add new Problem:
-            </h3>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <div style={{ padding: "10px", width: "95%" }}>
-                <ProblemInfoForm
-                  problemData={problemData}
-                  onChange={handleChange}
-                />
+    <div className="add-problem-page">
+      <div className="add-problem-shell">
+        <div className="add-problem-shell__header">
+          <h1 className="add-problem-title">Add New Problem</h1>
+          <p className="add-problem-subtitle">
+            Share your challenge with the community. Provide the problem
+            statement, tags, difficulty, and sample test cases to help others
+            solve it.
+          </p>
+        </div>
 
-                <DifficultySelector
-                  selected={problemData.difficulty}
-                  onSelect={(value) => handleChange("difficulty", value)}
-                />
-                <div className="flex">
-                  <TagsSelector
-                    selected={problemData.tagIDs}
-                    onChange={(tags) => handleChange("tagIDs", tags)}
-                  />
-                </div>
+        <ProblemInfoForm
+          problemData={problemData}
+          onChange={handleChange}
+        />
 
-                <TestCasesForm
-                  testCases={problemData.testCases}
-                  onChange={(cases) => handleChange("testCases", cases)}
-                />
-                <Buttons
-                  text="Add Problem"
-                  onClick={handleSubmit}
-                  style={{ marginTop: "20px" }}
-                />
-              </div>
-            </div>
-          </div>
+        <DifficultySelector
+          selected={problemData.difficulty}
+          onSelect={(value) => handleChange("difficulty", value)}
+        />
+
+        <TagsSelector
+          selected={problemData.tagIDs}
+          onChange={(tags) => handleChange("tagIDs", tags)}
+        />
+
+        <TestCasesForm
+          testCases={problemData.testCases}
+          onChange={(cases) => handleChange("testCases", cases)}
+        />
+
+        <div className="add-problem-action">
+          <Buttons text="Add Problem" onClick={handleSubmit} />
         </div>
       </div>
       <Modal

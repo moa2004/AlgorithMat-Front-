@@ -17,6 +17,7 @@ export default function ProblemInfoForm({ problemData, onChange }) {
     tutorial: false,
     timeLimitMilliseconds: false,
   });
+
   const toggleHint = (key) =>
     setHints((prev) => ({ ...prev, [key]: !prev[key] }));
 
@@ -25,9 +26,7 @@ export default function ProblemInfoForm({ problemData, onChange }) {
       try {
         setLoadingCompilers(true);
         setCompilersError(null);
-        const res = await fetch(
-          "http://localhost:5023/api/v1/compilers"
-        );
+        const res = await fetch("http://localhost:5023/api/v1/compilers");
         if (!res.ok) throw new Error("Failed to fetch compilers");
         const data = await res.json();
         setCompilers(Array.isArray(data) ? data : []);
@@ -36,7 +35,7 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         }
       } catch (e) {
         console.error(e);
-        setCompilersError("Compilers not fetched ❌");
+        setCompilersError("Compilers not fetched.");
       } finally {
         setLoadingCompilers(false);
       }
@@ -48,36 +47,23 @@ export default function ProblemInfoForm({ problemData, onChange }) {
     <button
       type="button"
       onClick={() => toggleHint(key)}
+      className="hint-button"
       aria-label={`Show help: ${label}`}
       title="Help"
-      style={{
-        marginLeft: 8,
-        border: "1px solid #e5e7eb",
-        background: "#f8fafc",
-        color: "#0f172a",
-        borderRadius: "50%",
-        width: 28,
-        height: 28,
-        fontSize: 16,
-        lineHeight: "28px",
-        cursor: "pointer",
-      }}
     >
       ?
     </button>
   );
 
   return (
-    <div>
-      <h2 style={{ marginBottom: "15px" }}>Problem Information</h2>
+    <section className="problem-info-section">
+      <h2>Problem Information</h2>
 
-      {/* Title */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <input
-          placeholder="Title.."
+          placeholder="Title..."
           value={problemData.title}
           onChange={(e) => onChange("title", e.target.value)}
-          style={{ flex: 1 }}
         />
         {hintBtn("title", "Title")}
       </div>
@@ -90,25 +76,21 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         />
       )}
 
-      {/* Compiler selector from API */}
-      <div style={{ margin: "8px 0" }}>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <label style={{ fontWeight: 600, marginBottom: 6 }}>Compiler</label>
+      <div className="field-block">
+        <div className="field-label">
+          <label>Compiler</label>
           {hintBtn("compiler", "Compiler")}
         </div>
         {loadingCompilers ? (
-          <p style={{ color: "#007bff" }}>Loading compilers... ⏳</p>
+          <p className="field-status field-status--info">
+            Loading compilers...
+          </p>
         ) : compilersError ? (
-          <p style={{ color: "red" }}>{compilersError}</p>
+          <p className="field-status field-status--error">{compilersError}</p>
         ) : (
           <select
             value={problemData.compilerName}
             onChange={(e) => onChange("compilerName", e.target.value)}
-            style={{
-              padding: "8px 10px",
-              borderRadius: 6,
-              border: "1px solid #e5e7eb",
-            }}
           >
             {compilers.map((c) => (
               <option key={c.compilerName} value={c.compilerName}>
@@ -127,13 +109,11 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         )}
       </div>
 
-      {/* General Description */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <textarea
-          placeholder="General Description.."
+          placeholder="General description..."
           value={problemData.generalDescription}
           onChange={(e) => onChange("generalDescription", e.target.value)}
-          style={{ flex: 1 }}
         />
         {hintBtn("generalDescription", "General description")}
       </div>
@@ -146,13 +126,11 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         />
       )}
 
-      {/* Input Description */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <textarea
-          placeholder="Input Description"
+          placeholder="Input description..."
           value={problemData.inputDescription}
           onChange={(e) => onChange("inputDescription", e.target.value)}
-          style={{ flex: 1 }}
         />
         {hintBtn("inputDescription", "Input description")}
       </div>
@@ -161,17 +139,15 @@ export default function ProblemInfoForm({ problemData, onChange }) {
           compact
           variant="info"
           title="Input Description"
-          description="Specify the input format and constraints (e.g., one line with two space‑separated integers)."
+          description="Specify the input format and constraints (e.g., one line with two space-separated integers)."
         />
       )}
 
-      {/* Output Description */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <textarea
-          placeholder="Output Description.."
+          placeholder="Output description..."
           value={problemData.outputDescription}
           onChange={(e) => onChange("outputDescription", e.target.value)}
-          style={{ flex: 1 }}
         />
         {hintBtn("outputDescription", "Output description")}
       </div>
@@ -184,13 +160,11 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         />
       )}
 
-      {/* Note */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <textarea
-          placeholder="note.."
+          placeholder="Notes (optional)..."
           value={problemData.note}
           onChange={(e) => onChange("note", e.target.value)}
-          style={{ flex: 1 }}
         />
         {hintBtn("note", "Notes")}
       </div>
@@ -203,13 +177,11 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         />
       )}
 
-      {/* Solution Code */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <textarea
-          placeholder="(Solution Code)"
+          placeholder="Solution code..."
           value={problemData.solutionCode}
           onChange={(e) => onChange("solutionCode", e.target.value)}
-          style={{ flex: 1 }}
         />
         {hintBtn("solutionCode", "Solution code")}
       </div>
@@ -218,18 +190,16 @@ export default function ProblemInfoForm({ problemData, onChange }) {
           compact
           variant="info"
           title="Solution Code"
-          description="Provide a reference solution if available (won’t be shown to users)."
+          description="Provide a reference solution if available (will not be shown to users)."
         />
       )}
 
-      {/* Tutorial */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <input
           type="text"
           placeholder="Tutorial (text or URL)"
           value={problemData.tutorial}
           onChange={(e) => onChange("tutorial", e.target.value)}
-          style={{ flex: 1 }}
         />
         {hintBtn("tutorial", "Tutorial")}
       </div>
@@ -242,16 +212,14 @@ export default function ProblemInfoForm({ problemData, onChange }) {
         />
       )}
 
-      {/* Time Limit */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div className="field-row">
         <input
           type="number"
-          placeholder="Time Limit (ms)"
+          placeholder="Time limit (ms)"
           value={problemData.timeLimitMilliseconds}
           onChange={(e) =>
-            onChange("timeLimitMilliseconds", parseInt(e.target.value))
+            onChange("timeLimitMilliseconds", parseInt(e.target.value, 10))
           }
-          style={{ flex: 1 }}
         />
         {hintBtn("timeLimitMilliseconds", "Max time")}
       </div>
@@ -263,6 +231,6 @@ export default function ProblemInfoForm({ problemData, onChange }) {
           description="Maximum execution time in milliseconds (e.g., 500 = half a second)."
         />
       )}
-    </div>
+    </section>
   );
 }

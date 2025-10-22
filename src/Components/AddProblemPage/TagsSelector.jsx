@@ -4,21 +4,19 @@ import HelperText from "../miniComponents/HelperText";
 export default function TagsSelector({ selected, onChange }) {
   const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTags = async () => {
       try {
         setLoading(true);
-        const res = await fetch(
-          "http://localhost:5023/api/v1/tags"
-        );
+        const res = await fetch("http://localhost:5023/api/v1/tags");
         if (!res.ok) throw new Error("Failed to fetch tags");
         const data = await res.json();
         setTags(data);
       } catch (err) {
         console.error(err);
-        setError("Tags not fetched ❌");
+        setError("Tags not fetched.");
       } finally {
         setLoading(false);
       }
@@ -36,33 +34,34 @@ export default function TagsSelector({ selected, onChange }) {
   };
 
   return (
-    <div className="tags-container">
-      <h2 style={{ marginBottom: "10px" }}>Select Tags</h2>
-      <HelperText>
-        Choose relevant tags to make the problem easier to find (e.g., math,
-        arrays).
-      </HelperText>
+  <section className="tags-container">
+    <h2>Select Tags</h2>
+    <HelperText>
+      Choose relevant tags to make the problem easier to find (e.g., math,
+      arrays).
+    </HelperText>
 
-      {/* حالة التحميل */}
-      {loading && <p style={{ color: "#007bff" }}> Loading tags...⏳</p>}
+    {loading && (
+      <p className="field-status field-status--info">Loading tags...</p>
+    )}
 
-      {/* حالة الخطأ */}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    {error && <p className="field-status field-status--error">{error}</p>}
 
-      {/* عرض التاغات بعد التحميل */}
-      {!loading &&
-        !error &&
-        tags.map((tag) => (
+    {!loading && !error && (
+      <div className="tags-list">
+        {tags.map((tag) => (
           <button
             key={tag.tagID}
             onClick={() => toggleTag(tag.tagID)}
-            className={
-              selected.includes(tag.tagID) ? "tag-button active" : "tag-button"
-            }
+            className={`tag-button ${
+              selected.includes(tag.tagID) ? "active" : ""
+            }`}
           >
             {tag.name}
           </button>
         ))}
-    </div>
-  );
+      </div>
+    )}
+  </section>
+);
 }

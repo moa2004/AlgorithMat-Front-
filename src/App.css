@@ -1,10 +1,6 @@
-.flex{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-body{
-    background-color: rgb(240, 238, 238);
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 

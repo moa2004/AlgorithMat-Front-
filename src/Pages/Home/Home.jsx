@@ -217,7 +217,7 @@ export default function Home() {
                     <span
                       style={{
                         color: (t.status || "").includes("Accepted")
-                          ? "#22c55e"
+                          ? "#4ade80"
                           : "tomato",
                         fontWeight: 700,
                       }}

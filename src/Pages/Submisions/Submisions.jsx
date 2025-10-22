@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import NavProblem from "../../Components/Problem Components/NavProblem";
 import Pagination from "../../Components/Problem Components/Pagination";
-import DifficultyButtons from "../../Components/Problem Components/DifficultyButtons";
 import LoadingSpinner from "../../Components/miniComponents/LoadingSpinner";
 import Modal from "../../Components/Modal";
 import AuthRequiredMessage from "../../Components/miniComponents/AuthRequiredMessage";
+import "./Submisions.css";
+
 export default function Submissions() {
   const [submissions, setSubmissions] = useState([]);
-  const [meta, setMeta] = useState({}); 
+  const [meta, setMeta] = useState({});
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [isPopupActive, setIsPopupActive] = useState(false);
-  const [popupContent, setPopupContent] = useState(null); 
+  const [popupContent, setPopupContent] = useState(null);
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState(null);
 
@@ -43,7 +43,7 @@ export default function Submissions() {
         setMeta(data);
       } catch (err) {
         console.error("Error fetching submissions:", err);
-        setError("❌ An error occurred while loading data.");
+        setError("An error occurred while loading data.");
       } finally {
         setLoading(false);
       }
@@ -71,6 +71,121 @@ export default function Submissions() {
   const distinctUsers = new Set(
     submissions.map((s) => s.username).filter(Boolean)
   ).size;
+
+  const statsSummary = [
+    {
+      icon: "fa-solid fa-list-check",
+      label: "Submissions",
+      value: totalSubmissions,
+      tone: "primary",
+    },
+    {
+      icon: "fa-regular fa-clock",
+      label: "Avg execution",
+      value: `${avgExecutionMs} ms`,
+      tone: "info",
+    },
+    {
+      icon: "fa-solid fa-circle-check",
+      label: "Accepted",
+      value: acceptedCount,
+      tone: "success",
+    },
+    {
+      icon: "fa-solid fa-circle-xmark",
+      label: "Not accepted",
+      value: notAcceptedCount,
+      tone: "danger",
+    },
+    {
+      icon: "fa-solid fa-code",
+      label: "Compilers",
+      value: distinctCompilers,
+      tone: "secondary",
+    },
+    {
+      icon: "fa-solid fa-user",
+      label: "Users",
+      value: distinctUsers,
+      tone: "accent",
+    },
+  ];
+
+  const currentPage = meta.currentPage || 1;
+  const totalPages = meta.totalPages || 1;
+
+  const getStatusKey = (status = "") => {
+    const normalized = status.toLowerCase();
+    if (normalized.includes("accept")) return "accepted";
+    if (normalized.includes("pending")) return "pending";
+    if (normalized.includes("queue") || normalized.includes("run"))
+      return "running";
+    return "rejected";
+  };
+
+  const renderSubmissions = () => {
+    if (loading) {
+      return (
+        <tr className="submissions-table__message">
+          <td colSpan="7">
+            <div className="table-status">
+              <LoadingSpinner />
+              <span>Loading data...</span>
+            </div>
+          </td>
+        </tr>
+      );
+    }
+
+    if (error) {
+      return (
+        <tr className="submissions-table__message">
+          <td colSpan="7">
+            <div className="table-status table-status--error">{error}</div>
+          </td>
+        </tr>
+      );
+    }
+
+    if (submissions.length === 0) {
+      return (
+        <tr className="submissions-table__message">
+          <td colSpan="7">
+            <div className="table-status table-status--empty">
+              No submissions found.
+            </div>
+          </td>
+        </tr>
+      );
+    }
+
+    return submissions.map((submission) => {
+      const statusKey = getStatusKey(submission.status || "");
+      return (
+        <tr
+          key={submission.submissionID}
+          className="submissions-row"
+          onClick={() => handleOpenDetails(submission.submissionID)}
+          title="Show solution details"
+        >
+          <td className="id-cell">{submission.submissionID}</td>
+          <td className="title-cell">{submission.problemTitle}</td>
+          <td>{submission.executionTimeMilliseconds} ms</td>
+          <td>{submission.username}</td>
+          <td>
+            <span className={`status-pill ${statusKey}`}>
+              <span className="status-pill__dot" />
+              {submission.status || "Unknown"}
+            </span>
+          </td>
+          <td>{submission.compilerName}</td>
+          <td className="description-cell">
+            {new Date(submission.submittedAt).toLocaleString()}
+          </td>
+        </tr>
+      );
+    });
+  };
 
   const handleOpenDetails = async (submissionID) => {
     try {
@@ -170,7 +285,7 @@ export default function Submissions() {
             Test Cases
           </div>
           {tests.length === 0 ? (
-            <div style={{ color: "#e6e8ecff" }}>No test case results</div>
+            <div style={{ color: "#e6e8ec" }}>No test case results</div>
           ) : (
             <div
               style={{
@@ -185,7 +300,7 @@ export default function Submissions() {
                     border: "1px solid #e5e7eb",
                     borderRadius: 8,
                     padding: 10,
-                    background: "#383737fd",
+                    background: "#1e1e2f",
                   }}
                 >
                   <div
@@ -210,7 +325,7 @@ export default function Submissions() {
                   <div
                     style={{
                       fontSize: 13,
-                      maxWidth: "300px",
+                      maxWidth: "320px",
                       overflow: "auto",
                     }}
                   >
@@ -247,172 +362,45 @@ export default function Submissions() {
     }
   };
 
-  const handelNextPage = () => {
-    if (pageNum < (meta.totalPages || 1)) {
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
       setPageNum((prev) => prev + 1);
     }
   };
 
-  const handelPrevPage = () => {
-    if (pageNum > 1) {
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
       setPageNum((prev) => prev - 1);
     }
   };
 
-  const renderSubmissions = () => {
-    if (loading) {
-      return (
-        <tr>
-          <td colSpan="7" style={{ textAlign: "center", padding: "20px" }}>
-            ⏳ Loading data...
-            <LoadingSpinner />
-          </td>
-        </tr>
-      );
-    }
-
-    if (error) {
-      return (
-        <tr>
-          <td
-            colSpan="7"
-            style={{ textAlign: "center", color: "tomato", padding: "20px" }}
-          >
-            {error}
-          </td>
-        </tr>
-      );
-    }
-
-    if (submissions.length === 0) {
-      return (
-        <tr>
-          <td
-            colSpan="7"
-            style={{ textAlign: "center", padding: "20px", color: "#555" }}
-          >
-            ⚠️ No results
-          </td>
-        </tr>
-      );
-    }
-
-    return submissions.map((submission, index) => (
-      <tr
-        key={submission.submissionID || index}
-        style={{ cursor: "pointer" }}
-        onClick={() => handleOpenDetails(submission.submissionID)}
-        title="Show solution details"
-      >
-        <td className="id-cell">{submission.submissionID}</td>
-        <td>{submission.problemTitle}</td>
-        <td>{submission.executionTimeMilliseconds} ms</td>
-        <td>{submission.username}</td>
-        <td>
-          <DifficultyButtons
-            text={submission.status}
-            style={{
-              "--color-primer":
-                submission.status === "Accepted" ? "#3eda5dff" : "tomato",
-              width: "90%",
-              fontSize: "14px",
-            }}
-          />
-        </td>
-        <td>{submission.compilerName}</td>
-        <td className="description-cell">
-          {new Date(submission.submittedAt).toLocaleString()}
-        </td>
-      </tr>
-    ));
-  };
-
   return (
-    <div className="ProblemListMain">
-      {/* Show a unified auth banner on top if user not logged in */}
-      {!token && (
-        <div
-          style={{
-            margin: "0 0 12px",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        ></div>
-      )}
-      <div className="table-wrapper">
-        <h3
-          style={{
-            padding: "10px",
-            margin: "10px 0 5px 10px",
-            color: "#024e96",
-          }}
-        >
-          Submissions List
-        </h3>
+    <div className="submissions-page">
+      <div className="submissions-shell">
+        <header className="submissions-header">
+          <h1 className="submissions-title">Submissions List</h1>
+          <p className="submissions-subtitle">
+            Track the latest results, execution times, and compiler details for
+            every submission.
+          </p>
+        </header>
 
-        <div
-          className="s2"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-around",
-              padding: "15px",
-              background: "#f9f9f9",
-              borderRadius: "8px",
-              margin: "10px 0",
-              fontWeight: "600",
-              width: "100%",
-            }}
-          >
-            <div>
-              <i
-                className="fa-solid fa-list-check"
-                style={{ marginRight: 6, color: "#024e96" }}
-              ></i>{" "}
-              Submissions: {totalSubmissions}
+        <section className="submissions-stats">
+          {statsSummary.map((stat) => (
+            <div key={stat.label} className="submissions-stat">
+              <span className={`submissions-stat__icon ${stat.tone}`}>
+                <i className={stat.icon} aria-hidden="true" />
+              </span>
+              <div className="submissions-stat__content">
+                <span className="stat-label">{stat.label}</span>
+                <span className="stat-value">{stat.value}</span>
+              </div>
             </div>
-            <div>
-              <i
-                className="fa-regular fa-clock"
-                style={{ marginRight: 6, color: "#6b7280" }}
-              ></i>{" "}
-              Avg execution: {avgExecutionMs} ms
-            </div>
-            <div>
-              <i
-                className="fa-solid fa-circle-check"
-                style={{ marginRight: 6, color: "#22c55e" }}
-              ></i>{" "}
-              Accepted: {acceptedCount}
-            </div>
-            <div>
-              <i
-                className="fa-solid fa-circle-xmark"
-                style={{ marginRight: 6, color: "#ef4444" }}
-              ></i>{" "}
-              Not accepted: {notAcceptedCount}
-            </div>
-            <div>
-              <i
-                className="fa-solid fa-code"
-                style={{ marginRight: 6, color: "#6366f1" }}
-              ></i>{" "}
-              Compilers: {distinctCompilers}
-            </div>
-            <div>
-              <i
-                className="fa-solid fa-user"
-                style={{ marginRight: 6, color: "#0ea5e9" }}
-              ></i>{" "}
-              Users: {distinctUsers}
-            </div>
-          </div>
-        </div>
+          ))}
+        </section>
 
-        <div className="par-table">
-          <table className="ch-table po-table">
+        <div className="submissions-table-card">
+          <table className="submissions-table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -420,7 +408,7 @@ export default function Submissions() {
                 <th>Execution Time</th>
                 <th>Solution By</th>
                 <th>Status</th>
-                <th>Compiler Name</th>
+                <th>Compiler</th>
                 <th>Submitted At</th>
               </tr>
             </thead>
@@ -429,32 +417,31 @@ export default function Submissions() {
         </div>
 
         <Pagination
-          onNext={handelNextPage}
-          onPrev={handelPrevPage}
-          currentPage={meta.currentPage || 1}
-          totalPage={meta.totalPages || 1}
+          onNext={handleNextPage}
+          onPrev={handlePrevPage}
+          currentPage={currentPage}
+          totalPage={totalPages}
         />
       </div>
 
-      {/* Modal for details */}
       <Modal
         text={
           detailsLoading ? (
-            <span>
-              Loading details...
+            <div className="modal-status">
               <LoadingSpinner />
-            </span>
+              <span>Loading details...</span>
+            </div>
           ) : detailsError ? (
-            <span style={{ color: "tomato" }}>{detailsError}</span>
+            <div className="modal-status modal-status--error">
+              {detailsError}
+            </div>
           ) : (
             popupContent
           )
         }
         isActive={isPopupActive}
         setIsActive={setIsPopupActive}
-        style={{
-          "max-width": "500px",
-        }}
+        style={{ maxWidth: 500 }}
       />
     </div>
   );

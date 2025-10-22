@@ -1,8 +1,9 @@
 import React from "react";
 
-export default function HelperText({ children, style }) {
+export default function HelperText({ children, style, className = "" }) {
   return (
     <p
+      className={`helper-text${className ? ` ${className}` : ""}`}
       style={{
         color: "#6b7280",
         fontSize: 12,

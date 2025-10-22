@@ -1,35 +1,38 @@
-:root {
-  --color-primer: var(--brand-600);
-}
-
 .Button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.4rem;
+  padding: 0.62rem 1.6rem;
   border-radius: 999px;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(244, 247, 255, 0.95));
-  color: var(--brand-800);
-  font-size: 0.95rem;
+  border: 1px solid var(--button-border, rgba(92, 143, 255, 0.4));
+  background: var(
+    --button-bg,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(238, 244, 255, 0.96))
+  );
+  color: var(--color-primer, var(--brand-700));
+  font-size: 0.96rem;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease,
-    background 0.25s ease;
+    background 0.25s ease, color 0.25s ease;
   letter-spacing: 0.25px;
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 14px 30px rgba(15, 56, 132, 0.18);
   text-decoration: none;
 }
 
 .Button:hover {
   transform: translateY(-2px);
-  border-color: rgba(47, 104, 255, 0.35);
-  background: linear-gradient(145deg, #ffffff, rgba(235, 244, 255, 0.98));
-  box-shadow: 0 20px 32px rgba(15, 23, 42, 0.18);
+  border-color: var(--button-border-hover, rgba(33, 200, 183, 0.45));
+  background: var(
+    --button-bg-hover,
+    linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(226, 239, 255, 0.98))
+  );
+  color: var(--color-primer-hover, var(--color-primer, var(--brand-700)));
+  box-shadow: 0 20px 36px rgba(9, 24, 71, 0.25);
 }
 
 .Button:active {
   transform: translateY(0);
-  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
+  box-shadow: 0 10px 22px rgba(9, 24, 71, 0.18);
 }

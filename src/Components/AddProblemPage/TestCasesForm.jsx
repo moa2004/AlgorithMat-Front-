@@ -25,19 +25,18 @@ export default function TestCasesForm({ testCases, onChange }) {
   };
 
   return (
-    <div className="test-cases-container">
+    <section className="test-cases-container">
       <h2>Test Cases</h2>
 
-      {/* إدخال البيانات */}
       <div className="test-case-form">
         <input
-          placeholder="Enter test case inputs.."
+          placeholder="Enter test case input exactly as the program should receive it"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         <HelperText>
-          Enter the exact input as the program should read it. You can add
-          multiple cases.
+          Enter the full input (including new lines). Add as many cases as you
+          need.
         </HelperText>
 
         <div className="checkbox-group">
@@ -59,33 +58,28 @@ export default function TestCasesForm({ testCases, onChange }) {
           </label>
         </div>
 
-        <Buttons
-          text="➕ Add Case"
-          onClick={addCase}
-          style={{ marginTop: "10px" }}
-        />
+        <Buttons text="Add Case" onClick={addCase} />
       </div>
 
-      {/* test cases */}
       <ul className="test-case-list">
         {testCases.length === 0 && (
-          <p style={{ color: "#666" }}>No test cases added yet</p>
+          <p className="test-case-empty">No test cases added yet</p>
         )}
         {testCases.map((tc, index) => (
           <li key={index} className="test-case-item">
             <div className="test-case-info">
               <span className="case-input">{tc.input}</span>
               <span className="case-flags">
-                {tc.isPublic ? "🌍 Public" : "🔒 Private"} |{" "}
-                {tc.isSample ? "📘 Sample" : "📄 Normal"}
+                {tc.isPublic ? "Public" : "Private"} •{" "}
+                {tc.isSample ? "Sample" : "Normal"}
               </span>
             </div>
             <button className="remove-btn" onClick={() => removeCase(index)}>
-              ❌ Remove
+              Remove
             </button>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }

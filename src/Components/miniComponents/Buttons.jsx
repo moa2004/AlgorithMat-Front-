@@ -1,9 +1,11 @@
 import React from "react";
 import "./Buttons.css";
-export default function Buttons({ text,onClick, style,}) {
+
+export default function Buttons({ text, onClick, style, className }) {
+  const classes = className ? `Button ${className}` : "Button";
 
   return (
-    <div className="Button" onClick={onClick} style={style}>
+    <div className={classes} onClick={onClick} style={style}>
       {text}
     </div>
   );
